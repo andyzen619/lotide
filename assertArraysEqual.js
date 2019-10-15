@@ -1,10 +1,14 @@
-// Shitty import of assertEqual function.
+/**
+ * Returns true if actual is equal to expected, false if otherwise.
+ * @param {*} actual 
+ * @param {*} expected 
+ */
 const assertEqual = function(actual, expected) {
   if (actual === expected) {
     console.log(`Assertion Passed: "${actual}" === "${expected}"`);
   } else {
     console.log(`Assertion Failed: "${actual}" !== "${expected}"`);
-  }
+  };
 }
 
 /**
@@ -27,10 +31,19 @@ let eqArrays = function(arr1, arr2) {
   return true;
 }
 
+/**
+ * Returns assertion statment for comparing arrays arr1 and arr2.
+ * @param {*} arr1 
+ * @param {*} arr2 
+ */
+const assertArraysEqual = function(arr1, arr2) {
+  if (eqArrays(arr1, arr2)) {
+    console.log(`Assertion PASSED: [${arr1}] === [${arr2}]`);
+  } else {
+    console.log(`Assertion FAILED: [${arr1}] !== [${arr2}]`);
+  }
+};
 
-//Test Cases
-assertEqual(eqArrays([1, 2, 3], [1, 2, 3]), true); // => true
-assertEqual(eqArrays([1, 2, 3], [3, 2, 1]), false); // => false
-
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", "3"]), true); // => true
-assertEqual(eqArrays(["1", "2", "3"], ["1", "2", 3]), false); // => false
+assertArraysEqual([], []);
+assertArraysEqual([1, 1, 1, 1], [1, 1]);
+assertArraysEqual([12344], []);
