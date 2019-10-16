@@ -61,33 +61,46 @@ const without = function(arr1, arr2) {
   return result;
 }
 
+const compareObjectSizes = function(obj1, obj2) {
+  if (Object.keys(obj1).length === Object.keys(obj2).length) {
+    return true;
+  }
+  return false;
+}
+
 /**
- * Return the key in which the first occurence of val appears in obj.
- * @param {Object} obj 
- * @param {Object} val 
- */
-const findKeyByValue = function(obj, val) {
-  for (key in obj) {
-    //Don't forget triple equals 
-    if (obj[key] === val) {
-      return key;
+Returns true if both objects have identical keys with identical values.
+Otherwise you get back a big fat false!
+*/
+const eqObjects = function(object1, object2) {
+  if (!compareObjectSizes(object1, object2)) {
+    return false;
+  }
+  for (key of Object.keys(object1)) {
+    if (!object2[key]) {
+      return false;
+    } else {
+      if (!eqArrays(object2[key], object1[key])) {
+        return false;
+      }
     }
   }
-}
-
-const bestTVShowsByGenre = {
-  sci_fi: "The Expanse",
-  comedy: "Brooklyn Nine-Nine",
-  drama: "The Wire"
+  return true;
 };
 
-const numberOfChamptionchips = {
-  Raptors: 1,
-  Lakers: 16,
-  Clevland: 1
-}
+//Primiteves as values Tests
+const ab = { a: "1", b: "2" };
+const ba = { b: "2", a: "1" };
+assertEqual(eqObjects(ab, ba), true); // => true
 
-assertEqual(findKeyByValue(bestTVShowsByGenre, "The Wire"), "drama");
-assertEqual(findKeyByValue(bestTVShowsByGenre, "That '70s Show"), undefined);
-assertEqual(findKeyByValue(numberOfChamptionchips, 1), "Raptors");
-assertEqual(findKeyByValue(numberOfChamptionchips, "1"), undefined);
+const abc = { a: "1", b: "2", c: "3" };
+assertEqual(eqObjects(ab, abc), false); // => false
+
+//Arrays as Values tests
+
+const cd = { c: "1", d: ["2", 3] };
+const dc = { d: ["2", 3], c: "1" };
+assertEqual(eqObjects(cd, dc), true); // => true
+
+const cd2 = { c: "1", d: ["2", 3, 4] };
+assertEqual(eqObjects(cd, cd2), false); // => false
