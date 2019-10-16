@@ -68,7 +68,7 @@ const without = function(arr1, arr2) {
  */
 const findKeyByValue = function(obj, val) {
   for (key in obj) {
-    if (obj[key] == val) {
+    if (obj[key] === val) {
       return key;
     }
   }
@@ -80,5 +80,13 @@ const bestTVShowsByGenre = {
   drama: "The Wire"
 };
 
+const numberOfChamptionchips = {
+  Raptors: 1,
+  Lakers: 16,
+  Clevland: 1
+}
+
 assertEqual(findKeyByValue(bestTVShowsByGenre, "The Wire"), "drama");
 assertEqual(findKeyByValue(bestTVShowsByGenre, "That '70s Show"), undefined);
+assertEqual(findKeyByValue(numberOfChamptionchips, 1), "Raptors");
+assertEqual(findKeyByValue(numberOfChamptionchips, "1"), undefined);
