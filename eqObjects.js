@@ -79,8 +79,14 @@ const eqObjects = function(object1, object2) {
   for (key of Object.keys(object1)) {
     if (!object2[key]) {
       return false;
-    } else {
+    }
+
+    if (Array.isArray(object1[key])) {
       if (!eqArrays(object2[key], object1[key])) {
+        return false;
+      }
+    } else {
+      if (object1[key] !== object2[key]) {
         return false;
       }
     }
@@ -89,17 +95,17 @@ const eqObjects = function(object1, object2) {
 };
 
 //Primiteves as values Tests
-const ab = { a: "1", b: "2" };
-const ba = { b: "2", a: "1" };
-assertEqual(eqObjects(ab, ba), true); // => true
+const ab = { a: "1", b: "2", c: 4 };
+const ba = { b: "2", a: "1", c: 3 };
+assertEqual(eqObjects(ab, ba), false); // => true
 
 const abc = { a: "1", b: "2", c: "3" };
 assertEqual(eqObjects(ab, abc), false); // => false
 
 //Arrays as Values tests
 
-const cd = { c: "1", d: ["2", 3] };
-const dc = { d: ["2", 3], c: "1" };
+const cd = { c: "5", d: ["2", 3] };
+const dc = { d: ["2", 3], c: "5" };
 assertEqual(eqObjects(cd, dc), true); // => true
 
 const cd2 = { c: "1", d: ["2", 3, 4] };
