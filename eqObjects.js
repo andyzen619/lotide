@@ -77,15 +77,25 @@ const eqObjects = function(object1, object2) {
     return false;
   }
   for (key of Object.keys(object1)) {
+    //If object 2 does not contain the key that is in object 1.
     if (!object2[key]) {
       return false;
     }
 
+    //If value at key is an array
     if (Array.isArray(object1[key])) {
       if (!eqArrays(object2[key], object1[key])) {
         return false;
       }
-    } else {
+    }
+
+    // value at key is not an object
+    else if (isObject(object1[key])) {
+      return eqObjects(object1[key], object2[key]);
+    }
+
+    //Compare the value of the key in both object 1 and 2.
+    else {
       if (object1[key] !== object2[key]) {
         return false;
       }
@@ -93,6 +103,11 @@ const eqObjects = function(object1, object2) {
   }
   return true;
 };
+
+// Returns if a value is an object
+function isObject(value) {
+  return value && typeof value === 'object' && value.constructor === Object;
+}
 
 //Primiteves as values Tests
 const ab = { a: "1", b: "2", c: 4 };
@@ -110,3 +125,9 @@ assertEqual(eqObjects(cd, dc), true); // => true
 
 const cd2 = { c: "1", d: ["2", 3, 4] };
 assertEqual(eqObjects(cd, cd2), false); // => false
+
+//Objects as arrays test
+
+assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true); // => true
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false); // => false
+assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false); // => false
