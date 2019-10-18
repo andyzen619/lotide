@@ -23,8 +23,14 @@ let eqArrays = function(arr1, arr2) {
   } else {
     //Loops through items or array and checks if they are equal, return false if otherwise.
     for (let i = 0; i < arr1.length; i++) {
-      if (arr1[i] !== arr2[i]) {
-        return false;
+      if (Array.isArray(arr1[i])) {
+        if (!eqArrays(arr1[i], arr2[i])) {
+          return false;
+        }
+      } else {
+        if (arr1[i] !== arr2[i]) {
+          return false;
+        }
       }
     }
   }
@@ -91,7 +97,9 @@ const eqObjects = function(object1, object2) {
 
     // value at key is not an object
     else if (isObject(object1[key])) {
-      return eqObjects(object1[key], object2[key]);
+      if (!eqObjects(object1[key], object2[key])) {
+        return false;
+      }
     }
 
     //Compare the value of the key in both object 1 and 2.
@@ -131,3 +139,28 @@ assertEqual(eqObjects(cd, cd2), false); // => false
 assertEqual(eqObjects({ a: { z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), true); // => true
 assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: { z: 1 }, b: 2 }), false); // => false
 assertEqual(eqObjects({ a: { y: 0, z: 1 }, b: 2 }, { a: 1, b: 2 }), false); // => false
+
+console.log("Testing eqArray nested");
+console.log("_______________________________________________")
+
+assertEqual(eqArrays([
+  [2, 3],
+  [4]
+], [
+  [2, 3],
+  [4]
+]), true); // => true
+
+assertEqual(eqArrays([
+  [2, 3],
+  [4]
+], [
+  [2, 3],
+  [4, 5]
+]), false); // => false
+assertEqual(eqArrays([
+  [2, 3],
+  [4]
+], [
+  [2, 3], 4
+]), false); // => false
