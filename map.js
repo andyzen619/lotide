@@ -7,8 +7,6 @@ const map = function(array, callback) {
     results.push(callback(item));
   }
   return results;
-}
-const words = ["ground", "control", "to", "major", "tom"];
+};
 
-result1 = map(words, word => word[0]);
-assertLibrary.assertArraysEqual(result1, ['g', 'c', 't', 'm', 't']);
+module.exports = map;
