@@ -1,48 +1,4 @@
-/**
- * Returns true if actual is equal to expected, false if otherwise.
- * @param {*} actual 
- * @param {*} expected 
- */
-const assertEqual = function(actual, expected) {
-  if (actual === expected) {
-    console.log(`Assertion Passed: "${actual}" === "${expected}"`);
-  } else {
-    console.log(`Assertion Failed: "${actual}" !== "${expected}"`);
-  };
-}
-
-/**
- * Returns true if arr1 and arr2 are equal and false otherwise.
- * @param {*} arr1 array to be compared.
- * @param {*} arr2 array to be compared.
- */
-let eqArrays = function(arr1, arr2) {
-  //Checks for equal length, return false if otherwise.
-  if (arr1.length !== arr2.length) {
-    return false;
-  } else {
-    //Loops through items or array and checks if they are equal, return false if otherwise.
-    for (let i = 0; i < arr1.length; i++) {
-      if (arr1[i] !== arr2[i]) {
-        return false;
-      }
-    }
-  }
-  return true;
-}
-
-/**
- * Returns assertion statment for comparing arrays arr1 and arr2.
- * @param {*} arr1 
- * @param {*} arr2 
- */
-const assertArraysEqual = function(arr1, arr2) {
-  if (eqArrays(arr1, arr2)) {
-    console.log(`Assertion PASSED: [${arr1}] === [${arr2}]`);
-  } else {
-    console.log(`Assertion FAILED: [${arr1}] !== [${arr2}]`);
-  }
-};
+const assertArraysEqual = require("./assertArraysEqual");
 
 /**
  * Return a new array containing the middle item or array if size of array is odd and return the middle two items in an array if the size of array is even.
@@ -70,12 +26,4 @@ const middle = function(array) {
   return result;
 }
 
-console.log(middle([1, 2]));
-console.log(middle([1, 2, 3]));
-console.log(middle([1, 2, 3, 4])); // => [2, 3]
-console.log(middle([1, 2, 3, 4, 5, 6])); // => [3, 4]
-
-assertArraysEqual(middle([1, 2, 3, 4]), [2, 3]);
-assertArraysEqual(middle([1, 2, 3, 4, 5, 6]), [3, 4]);
-assertArraysEqual(middle([]), []);
-assertArraysEqual(middle([1, 2]), []);
+module.exports = middle;
