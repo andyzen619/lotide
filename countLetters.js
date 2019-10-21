@@ -1,16 +1,7 @@
-// /**
-//  * Returns true if actual is equal to expected, false if otherwise.
-//  * @param {*} actual 
-//  * @param {*} expected 
-//  */
-// const assertEqual = function(actual, expected) {
-//   if (actual === expected) {
-//     console.log(`Assertion Passed: "${actual}" === "${expected}"`);
-//   } else {
-//     console.log(`Assertion Failed: "${actual}" !== "${expected}"`);
-//   };
-// }
-
+/**
+ * Returns and object that contains the number of occurences for each letter of str.
+ * @param {Str} str 
+ */
 const countLetters = function(str) {
   let result = {};
   for (letter of str) {
@@ -26,17 +17,3 @@ const countLetters = function(str) {
 }
 
 module.exports = countLetters;
-
-// const firstNames = [
-//   "Karl",
-//   "Salima",
-//   "Agouhanna",
-//   "Fang",
-//   "Kavith",
-//   "Jason",
-//   "Salima",
-//   "Fang",
-//   "Joe"
-// ];
-
-// console.log(countLetters("lighthouse in the house"));
